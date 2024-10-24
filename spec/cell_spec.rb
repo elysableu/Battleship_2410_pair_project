@@ -15,5 +15,9 @@ RSpec.describe Cell do
     it "populates coordinate attribute" do
       expect(@cell.coordinate).to eq("B4")
     end
+
+    it "defaults nil for ship" do
+      expect(@cell.ship).to be nil
+    end
   end
 end
