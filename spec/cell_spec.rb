@@ -19,5 +19,10 @@ RSpec.describe Cell do
     it "defaults nil for ship" do
       expect(@cell.ship).to be nil
     end
+
+    it "recognizes cell as empty? if ship is nil" do
+      expect(@cell.ship).to be nil
+      expect(@cell.empty?).to be true
+    end
   end
 end
