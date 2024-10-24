@@ -11,5 +11,9 @@ RSpec.describe Cell do
     it "Initializes" do
       expect(@cell).to be_a Cell
     end
+
+    it "populates coordinate attribute" do
+      expect(@cell.coordinate).to eq("B4")
+    end
   end
 end
