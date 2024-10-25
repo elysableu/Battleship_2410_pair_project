@@ -11,7 +11,7 @@ RSpec.describe Ship do
 
   describe "#initialize" do
     it "exists" do
-      expect(@cruiser).to be a Ship
+      expect(@cruiser).to be_a Ship
     end
 
     it "has name attribute" do
