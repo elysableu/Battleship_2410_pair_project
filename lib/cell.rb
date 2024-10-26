@@ -36,7 +36,7 @@ class Cell
       return "H"
     elsif fired_upon? == true && empty? == true
       return "M"
-    elsif s == true  
+    elsif s == true && empty? == false
       return "S"
     else
       return "."
