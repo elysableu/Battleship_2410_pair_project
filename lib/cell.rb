@@ -3,6 +3,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @fired = false
   end
 
   def empty?
@@ -18,6 +19,8 @@ class Cell
   end
 
   def fired_upon?
-    false
+    @fired
   end
+
+ 
 end
