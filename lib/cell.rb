@@ -28,4 +28,18 @@ class Cell
       @ship.hit
     end
   end
+
+  def render(s = false)
+    if fired_upon? == true && empty? == false && @ship.sunk? == true
+      return "X"
+    elsif fired_upon? == true && empty? == false && @ship.sunk? == false
+      return "H"
+    elsif fired_upon? == true && empty? == true
+      return "M"
+    elsif s == true  
+      return "S"
+    else
+      return "."
+    end
+  end
 end
