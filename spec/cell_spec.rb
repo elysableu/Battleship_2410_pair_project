@@ -34,5 +34,14 @@ RSpec.describe Cell do
         expect(@cell.empty?).to be false
       end
     end
+
+    describe "#fire_upon" do
+      it "cell defaults false for fired_upon?" do
+        @cell.place_ship(@cruiser)
+        expect(@cell.fired_upon?).to be false
+      end
+    end
+
+
   end
 end
