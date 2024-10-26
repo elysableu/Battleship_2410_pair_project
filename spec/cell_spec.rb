@@ -7,6 +7,7 @@ RSpec.describe Cell do
     @cell = Cell.new("B4")
     @cruiser = Ship.new("Cruiser", 3)
   end
+  
   describe "#initialize" do
     it "Initializes" do
       expect(@cell).to be_a Cell
@@ -35,6 +36,21 @@ RSpec.describe Cell do
       end
     end
 
+    describe "#fire_upon" do
+      it "cell defaults false for fired_upon?" do
+        @cell.place_ship(@cruiser)
+        expect(@cell.fired_upon?).to be false
+      end
+
+      it "fire_upon reduces ships health" do
+        @cell.place_ship(@cruiser)
+        expect(@cell.fired_upon?).to be false
+        @cell.fire_upon
+        expect(@cell.ship.health).to eq(2)
+        expect(@cell.fired_upon?).to be true
+      end
+    end
+    
     describe "#render" do
       before(:each) do
         @cell_1 = @cell
