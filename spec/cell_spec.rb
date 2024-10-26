@@ -77,8 +77,9 @@ RSpec.describe Cell do
       expect(@cell_2.render).to eq(".")
     end
 
+    # Method parameter to be followed by *
     it "renders 'S' when optional argument is true" do
-
+      expect(@cell_2.render(true)).to eq("S")
     end
 
     it "renders 'H' when cell with ship is fired_upon" do
