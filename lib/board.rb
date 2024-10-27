@@ -61,16 +61,36 @@ class Board
   end
 
   def consecutive_coordinates?(ship, coordinates_array)
-    if determine_row_or_column == "row"
-
+    if determine_row_or_column(coordinates_array) == "row"
+      possible_placement = []
+      (1..4).each_cons(ship.length) do |set|
+        possible_placement << set
+      end  
+      row_array = coordinates_array.map do |coordinate|
+        coordinate[-1].to_i
+      end
+      return true if possible_placement.include?(row_array)
+    elsif determine_row_or_column(coordinates_array) == "column"
+      possible_placement = []
+      (65..68).each_cons(ship.length) do |set|
+        possible_placement << set
+      end  
+      column_array = coordinates_array.map do |coordinate|
+        coordinate[0].ord
+      end
+      return true if possible_placement.include?(column_array)
+    else
+      return false #returns false if diagonal
     end
   end
 
   def determine_row_or_column(coordinates_array)
     if coordinates_array.all?(/A/) || coordinates_array.all?(/B/) || coordinates_array.all?(/C/) || coordinates_array.all?(/D/)
       return "row"
-    else
+    elsif coordinates_array.all?(/1/) || coordinates_array.all?(/2/) || coordinates_array.all?(/3/) || coordinates_array.all?(/4/)
       return "column"
+    else
+      return "diagonal"
     end
   end
 end
