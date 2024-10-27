@@ -39,4 +39,38 @@ class Board
       return false
     end
   end
+
+  def valid_placement?(ship, coordinates_array)
+    if ship_length_matches_coordinates_array?(ship, coordinates_array) == true
+      if consecutive_coordinates?(ship, coordinates_array) == true
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
+  def ship_length_matches_coordinates_array?(ship, coordinates_array)
+    if ship.length == coordinates_array.count
+      return true
+    else 
+      return false
+    end
+  end
+
+  def consecutive_coordinates?(ship, coordinates_array)
+    if determine_row_or_column == "row"
+
+    end
+  end
+
+  def determine_row_or_column(coordinates_array)
+    if coordinates_array.all?(/A/) || coordinates_array.all?(/B/) || coordinates_array.all?(/C/) || coordinates_array.all?(/D/)
+      return "row"
+    else
+      return "column"
+    end
+  end
 end
