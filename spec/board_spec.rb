@@ -59,14 +59,6 @@ RSpec.describe Board do
     end
   end
 
-  describe "#overlapping_ships" do
-    it "can return false if ship placements overlap" do
-      @board.place(@cruiser, ["A1", "A2", "A3"])
-
-      expect(board.valid_placement?(@submarine, ["A1", "B1"])).to be false
-    end
-  end
-
   describe "#place_ship" do
     it "can place ship" do
       @board.place(@cruiser, ["A1", "A2", "A3"])
@@ -81,6 +73,14 @@ RSpec.describe Board do
 
     it "has same ship object is each coordinate" do
       expect(cell_3.ship == cell_2.ship).to be true
+    end
+  end
+
+  describe "#overlapping_ships" do
+    it "can return false if ship placements overlap" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+
+      expect(board.valid_placement?(@submarine, ["A1", "B1"])).to be false
     end
   end
 
