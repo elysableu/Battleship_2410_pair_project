@@ -58,4 +58,44 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@cruiser), ["B1", "C1", "D1"]).to be true
     end
   end
+
+
+  describe "#render_board" do
+    before(:each) do
+      @rendered_board = " 1 2 3 4 \n" + 
+                        "A . . . . \n" + 
+                        "B . . . . \n" + 
+                        "C . . . . \n" + 
+                        "D . . . . \n"
+    end
+    
+    it "can render default board" do
+      expect(@board.render).to eq(@rendered_board)
+    end
+
+    it "can render placed ship when render is true" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      
+      true_rendered_board = " 1 2 3 4 \n" + 
+                            "A S S S . \n" + 
+                            "B . . . . \n" + 
+                            "C . . . . \n" + 
+                            "D . . . . \n"
+
+      expect(@board.render).to eq(@rendered_board)
+      expect(@board.render(true)).to eq(true_rendered_board)
+    end
+
+    xit "can render hits on ships" do
+
+    end
+
+    xit "can render misses" do 
+
+    end
+
+    xit "can render sunken ships" do 
+
+    end
+  end
 end
