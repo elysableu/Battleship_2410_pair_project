@@ -59,6 +59,13 @@ RSpec.describe Board do
     end
   end
 
+  describe "#overlapping_ships" do
+    it "can return false if ship placements overlap" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+
+      expect(board.valid_placement?(@submarine, ["A1", "B1"])).to be false
+    end
+  end
 
   describe "#render_board" do
     before(:each) do
