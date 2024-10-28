@@ -41,21 +41,13 @@ class Board
   end
 
   def valid_placement?(ship, coordinates_array)
-    if ship_length_matches_coordinates_array?(ship, coordinates_array) == true
+    if ship.length == coordinates_array.count
       if consecutive_coordinates?(ship, coordinates_array) == true
         return true
       else
         return false
       end
     else
-      return false
-    end
-  end
-
-  def ship_length_matches_coordinates_array?(ship, coordinates_array)
-    if ship.length == coordinates_array.count
-      return true
-    else 
       return false
     end
   end
@@ -80,7 +72,7 @@ class Board
       end
       return true if possible_placement.include?(column_array)
     else
-      return false #returns false if diagonal
+      return false # returns false if diagonal
     end
   end
 
