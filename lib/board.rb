@@ -31,9 +31,9 @@ class Board
       board_row = "#{row}"
       
       (1..4).each do |column|
-        # require "pry"; binding.pry
         board_row += " #{@cells["#{row}#{column.to_s}"].render(s)}"
       end
+
       board_row += " \n"
       board += board_row
     end
