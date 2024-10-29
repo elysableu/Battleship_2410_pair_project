@@ -92,12 +92,19 @@ RSpec.describe Board do
   describe "#render_board" do
     before(:each) do
       @board.place(@cruiser, ["A1", "A2", "A3"])
+      @board.place(@submarine, ["C1", "D1"])
       
       @rendered_board = "  1 2 3 4 \n" + 
                         "A . . . . \n" + 
                         "B . . . . \n" + 
                         "C . . . . \n" + 
                         "D . . . . \n"
+
+      @true_rendered_board =  "  1 2 3 4 \n" + 
+                              "A S S S . \n" + 
+                              "B . . . . \n" + 
+                              "C S . . . \n" + 
+                              "D S . . . \n"
     end
     
     it "can render default board" do
@@ -105,16 +112,11 @@ RSpec.describe Board do
     end
 
     it "can render placed ship when render is true" do
-      @true_rendered_board =  "  1 2 3 4 \n" + 
-                              "A S S S . \n" + 
-                              "B . . . . \n" + 
-                              "C . . . . \n" + 
-                              "D . . . . \n"
       expect(@board.render).to eq(@rendered_board)
       expect(@board.render(true)).to eq(@true_rendered_board)
     end
 
-    xit "can render hits on ships" do
+    it "can render hits on ships" do
       expect(@board.render).to eq(@rendered_board)
       expect(@board.render(true)).to eq(@true_rendered_board)
 
@@ -127,15 +129,15 @@ RSpec.describe Board do
       @true_hit_rendered =  "  1 2 3 4 \n" + 
                             "A H S S . \n" + 
                             "B . . . . \n" + 
-                            "C . . . . \n" + 
-                            "D . . . . \n"
+                            "C S . . . \n" + 
+                            "D S . . . \n"
 
       @board.cells["A1"].fire_upon
       expect(@board.render).to eq(@hit_rendered)
       expect(@board.render(true)).to eq(@true_hit_rendered)
     end
 
-    xit "can render misses" do 
+    it "can render misses" do 
       expect(@board.render).to eq(@rendered_board)
       expect(@board.render(true)).to eq(@true_rendered_board)
 
@@ -147,17 +149,15 @@ RSpec.describe Board do
       @true_miss_rendered = "  1 2 3 4 \n" + 
                             "A S S S . \n" + 
                             "B . . . M \n" + 
-                            "C . . . . \n" + 
-                            "D . . . . \n"
+                            "C S . . . \n" + 
+                            "D S . . . \n"
 
       @board.cells["B4"].fire_upon
       expect(@board.render).to eq(@miss_rendered)
       expect(@board.render(true)).to eq(@true_miss_rendered)
     end
 
-    xit "can render sunken ships" do 
-      @board.place(@submarine, ["C1", "D1"])
-
+    it "can render sunken ships" do 
       expect(@board.render).to eq(@rendered_board)
       expect(@board.render(true)).to eq(@true_rendered_board)
 
@@ -178,7 +178,7 @@ RSpec.describe Board do
       expect(@board.render(true)).to eq(@true_sunken_ship_rendered)
     end
 
-    xit "can render midgame" do
+    it "can render midgame" do
       @board.place(@submarine, ["C1", "D1"])
 
       expect(@board.render).to eq(@rendered_board)
