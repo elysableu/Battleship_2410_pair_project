@@ -1,3 +1,6 @@
+require 'rspec'
+require 'stringio'
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/main_menu'
