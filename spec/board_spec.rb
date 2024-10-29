@@ -73,7 +73,7 @@ RSpec.describe Board do
 
     it "has same ship object is each coordinate" do
       @board.place(@cruiser, ["A1", "A2", "A3"])
-      cell_1 = @board.cells["A1"]
+      # cell_1 = @board.cells["A1"]
       cell_2 = @board.cells["A2"]
       cell_3 = @board.cells["A3"]
       
@@ -82,17 +82,16 @@ RSpec.describe Board do
   end
 
   describe "#overlapping_ships" do
-    xit "can return false if ship placements overlap" do
+    it "can return false if ship placements overlap" do
       @board.place(@cruiser, ["A1", "A2", "A3"])
 
-      expect(board.valid_placement?(@submarine, ["A1", "B1"])).to be false
+      expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to be false
     end
   end
 
   describe "#render_board" do
     before(:each) do
       @board.place(@cruiser, ["A1", "A2", "A3"])
-      @board.place(@submarine, ["C1", "D1"])
       
       @rendered_board = " 1 2 3 4 \n" + 
                         "A . . . . \n" + 
@@ -169,6 +168,8 @@ RSpec.describe Board do
     end
 
     xit "can render sunken ships" do 
+      @board.place(@submarine, ["C1", "D1"])
+
       expect(@board.render).to eq(@rendered_board)
       expect(@board.render(true)).to eq(@true_rendered_board)
 
@@ -179,6 +180,8 @@ RSpec.describe Board do
     end
 
     xit "can render midgame" do
+      @board.place(@submarine, ["C1", "D1"])
+
       expect(@board.render).to eq(@rendered_board)
       expect(@board.render(true)).to eq(@true_rendered_board)
     end
