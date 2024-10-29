@@ -22,6 +22,17 @@ class Board
     }
   end
 
+  def place(ship, coordinates_array)
+    return "Invalid coordinate" unless coordinates_array.all? { |coordinate| valid_coordinate?(coordinate) }
+    if valid_placement?(ship, coordinates_array)
+      coordinates_array.each do |coordinate|
+        cells[coordinate].place_ship(ship)
+      end
+    else 
+      return "Invalid ship placement!"
+    end
+  end
+
   def valid_coordinate?(coordinate)
     range_nums = (1..4).to_a.map(&:to_s)
     range_abc = ("A".."D").to_a
