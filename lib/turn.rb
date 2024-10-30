@@ -73,4 +73,21 @@ class Turn
     player_fire_shot
     computer_fire_shot
   end
+
+  def report(result)
+    if result == "Hit"
+      return "That's a hit!"
+    elsif result == "Miss"
+      return "That's a miss!"
+    elsif result == "Sunk"
+      return "You sunk my BATTLESHIP!"
+    else
+      if result == "Player Invalid"
+        return  "That coordinate has already been fired upon!\n" +
+                "Try another coordinate: \n>"
+      else
+        computer_fire_shot
+      end
+    end
+  end
 end
