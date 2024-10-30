@@ -7,10 +7,6 @@ RSpec.describe Game do
       @submarine = Ship.new("Submarine", 2)
       @computer_board = Board.new
       @player_board = Board.new
-      # @player_board.place(@cruiser, ["B1", "B2", "B3"])
-      # @player_board.place(@submarine, ["A1", "A2"])
-      # @computer_board.place(@cruiser, ["A4", "B4", "C4"])
-      # @computer_board.place(@submarine, ["D3", "D4"])
       @turn_1 = Turn.new("D3", @player_board, @computer_board)
       @turn_2 = Turn.new("D2", @player_board, @computer_board)
       @turn_3 = Turn.new("D4", @player_board, @computer_board)
@@ -19,7 +15,11 @@ RSpec.describe Game do
     end
 
     it "exists" do
-      expect(game).to be_a(Game)
+      expect(@game).to be_a(Game)
+    end
+
+    it "has a winner deafault to empty" do
+      expect(@game.winner).to be_empty
     end
 
   end
