@@ -12,4 +12,14 @@ class Turn
     "\n===========PLAYER BOARD===========\n" +
     @player_board.render(true)
   end
+   
+  def player_fire_shot
+    if @computer_board.cells[@player_fired].fired_upon? == false
+      @computer_board.cells[@player_fired].fire_upon
+      return true
+    else 
+      return false
+    end
+  end
+
 end
