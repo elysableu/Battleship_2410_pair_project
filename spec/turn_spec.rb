@@ -36,10 +36,10 @@ RSpec.describe Turn do
     end
 
     it "can display starting board" do 
-      @computer_board.place(@cruiser, ["B1", "B2", "B3"])
-      @computer_board.place(@submarine, ["A1", "A2"])
-      @player_board.place(@cruiser, ["A4", "B4", "C4"])
-      @player_board.place(@submarine, ["D3", "D4"])
+      @player_board.place(@cruiser, ["B1", "B2", "B3"])
+      @player_board.place(@submarine, ["A1", "A2"])
+      @computer_board.place(@cruiser, ["A4", "B4", "C4"])
+      @computer_board.place(@submarine, ["D3", "D4"])
 
       expect(@turn_1.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
@@ -65,45 +65,62 @@ RSpec.describe Turn do
     end
   end
 
-  describe "#report_results" do
+  describe "#report" do
+    before(:each) do
+      @player_board.place(@cruiser, ["B1", "B2", "B3"])
+      @player_board.place(@submarine, ["A1", "A2"])
+      @computer_board.place(@cruiser, ["A4", "B4", "C4"])
+      @computer_board.place(@submarine, ["D3", "D4"])
+    end
+
     it "can report a hit" do
       @turn_1.fire_shots
+
+      player_result = @turn_1.player_result
       expect(@turn_1.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
                                     @player_board.render(true))
       
-      expect(@turn_1.report).to eq("That's a hit!")
+      expect(@turn_1.report(player_result)).to eq("That's a hit!")
     end
 
     it "can report a miss" do
       @turn_2.fire_shots
+
+      player_result = @turn_2.player_result
       expect(@turn_2.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
                                     @player_board.render(true))
       
-      expect(@turn_2.report).to eq("That's a miss!")
+      expect(@turn_2.report(player_result)).to eq("That's a miss!")
     end
 
     it "can report a ship sunk" do
+      @turn_1.fire_shots
       @turn_3.fire_shots
+
+      player_result = @turn_3.player_result
       expect(@turn_3.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
                                     @player_board.render(true))
       
-      expect(@turn_3.report).to eq("You sunk my BATTLESHIP!")
+      expect(@turn_3.report(player_result)).to eq("You sunk my BATTLESHIP!")
     end
 
     it "can report if coordinate has already been fired upon" do
       @turn_2.fire_shots
       @turn_4.fire_shots
+
+      player_result = @turn_4.player_result
       expect(@turn_4.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
                                     @player_board.render(true))
-      expect(@turn_4.report).to eq("That coordinate has already been fired upon!\n" +
+    
+      expect(@turn_4.report(player_result)).to eq("That coordinate has already been fired upon!\n" +
                                   "Try another coordinate: \n>")
     end
   end
