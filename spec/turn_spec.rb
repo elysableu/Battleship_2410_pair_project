@@ -1,20 +1,19 @@
 require './spec/spec_helper'
 
 RSpec.describe Turn do
+  before(:each) do
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+    @computer_board = Board.new
+    @player_board = Board.new
+    @turn_1 = Turn.new("D3", @player_board, @computer_board)
+    @turn_2 = Turn.new("D2", @player_board, @computer_board)
+    @turn_3 = Turn.new("D4", @player_board, @computer_board)
+    @turn_4 = Turn.new("D2", @player_board, @computer_board)
+  end
   describe "#initialize" do
-    before(:each) do
-      @cruiser = Ship.new("Cruiser", 3)
-      @submarine = Ship.new("Submarine", 2)
-      @computer_board = Board.new
-      @player_board = Board.new
-      @computer_board.place(@cruiser, ["A4", "B4", "C4"])
-      @computer_board.place(@submarine, ["D3", "D4"])
-      @player_board.place(@cruiser, ["A4", "B4", "C4"])
-      @player_board.place(@submarine, ["D3", "D4"])
-      @turn_1 = Turn.new("D3", @player_board, @computer_board)
-      @turn_2 = Turn.new("D2", @player_board, @computer_board)
+   
 
-    end
     it "exists" do
       expect(@turn_1).to be_a(Turn)
     end
@@ -29,7 +28,19 @@ RSpec.describe Turn do
       expect(@turn_2.player_fired).to eq("D2")
     end
     
+    it "can display default board" do
+      expect(@turn_1.display).to eq("==========COMPUTER BOARD==========\n" +
+                                    @computer_board.render + 
+                                    "\n===========PLAYER BOARD===========\n" +
+                                    @player_board.render(true))
+    end
+
     it "can display starting board" do 
+      @computer_board.place(@cruiser, ["B1", "B2", "B3"])
+      @computer_board.place(@submarine, ["A1", "A2"])
+      @player_board.place(@cruiser, ["A4", "B4", "C4"])
+      @player_board.place(@submarine, ["D3", "D4"])
+
       expect(@turn_1.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
@@ -39,11 +50,18 @@ RSpec.describe Turn do
 
   describe "#fire_shot" do
     it "can have player fire a shot" do
-      expect(@turn_1.player_fire_shot).to eq("D3")
+      expect(@turn_1.player_fire_shot).to be true
+    end
+
+    it "can't fire upon coordinate already fired_upon" do
+      @turn_2.player_fire_shot
+      @turn_4.player_fire_shot
+
+      expect(@turn_4.player_fire_shot).to be false
     end
 
     it "can have computer fire a shot" do
-      expect(@turn_1.computer_fire_shot).to_not be_empty
+      expect(@turn_1.computer_fire_shot).to be true
     end
   end
 
@@ -69,8 +87,7 @@ RSpec.describe Turn do
     end
 
     it "can report a ship sunk" do
-      turn_3 = Turn.new("D4", @player_board, @computer_board)
-      turn_3.fire_shots
+      @turn_3.fire_shots
       expect(@turn_3.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
@@ -80,13 +97,13 @@ RSpec.describe Turn do
     end
 
     it "can report if coordinate has already been fired upon" do
-      turn_4 = Turn.new("D2", @player_board, @computer_board)
-      turn_4.fire_shots
-      expect(turn_4.display).to eq("==========COMPUTER BOARD==========\n" +
+      @turn_2.fire_shots
+      @turn_4.fire_shots
+      expect(@turn_4.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
                                     @player_board.render(true))
-      expect(turn_4.report).to eq("That coordinate has already been fired upon!\n" +
+      expect(@turn_4.report).to eq("That coordinate has already been fired upon!\n" +
                                   "Try another coordinate: \n>")
     end
   end
