@@ -11,9 +11,8 @@ RSpec.describe Turn do
     @turn_3 = Turn.new("D4", @player_board, @computer_board)
     @turn_4 = Turn.new("D2", @player_board, @computer_board)
   end
-  describe "#initialize" do
-   
 
+  describe "#initialize" do
     it "exists" do
       expect(@turn_1).to be_a(Turn)
     end
