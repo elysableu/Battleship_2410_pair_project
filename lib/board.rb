@@ -66,7 +66,7 @@ class Board
 
   def valid_placement?(ship, coordinates_array)
     return false unless ship.length == coordinates_array.count
-    return false unless coordinates_array.all? { |coordinate| cells[coordinate].empty?}
+    return false unless coordinates_array.all? { |coordinate| @cells[coordinate].empty?}
     consecutive_coordinates?(ship, coordinates_array) == true
   end
 
