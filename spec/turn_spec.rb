@@ -29,7 +29,7 @@ RSpec.describe Turn do
       expect(@turn_2.player_fired).to eq("D2")
     end
     
-    it "can display default board" do 
+    it "can display starting board" do 
       expect(@turn_1.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
@@ -39,17 +39,17 @@ RSpec.describe Turn do
 
   describe "#fire_shot" do
     it "can have player fire a shot" do
-      expect(@turn_1.player_fire_shot).to be true
+      expect(@turn_1.player_fire_shot).to eq("D3")
     end
 
     it "can have computer fire a shot" do
-      expect(@turn_1.computer_fire_shot).to be true
+      expect(@turn_1.computer_fire_shot).to_not be_empty
     end
   end
 
   describe "#report_results" do
     it "can report a hit" do
-      @turn_1.fire_shot
+      @turn_1.fire_shots
       expect(@turn_1.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
@@ -59,7 +59,7 @@ RSpec.describe Turn do
     end
 
     it "can report a miss" do
-      @turn_2.fire_shot
+      @turn_2.fire_shots
       expect(@turn_2.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
@@ -70,7 +70,7 @@ RSpec.describe Turn do
 
     it "can report a ship sunk" do
       turn_3 = Turn.new("D4", @player_board, @computer_board)
-      turn_3.fire_shot
+      turn_3.fire_shots
       expect(@turn_3.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
@@ -81,7 +81,7 @@ RSpec.describe Turn do
 
     it "can report if coordinate has already been fired upon" do
       turn_4 = Turn.new("D2", @player_board, @computer_board)
-      turn_4.fire_shot
+      turn_4.fire_shots
       expect(turn_4.display).to eq("==========COMPUTER BOARD==========\n" +
                                     @computer_board.render + 
                                     "\n===========PLAYER BOARD===========\n" +
