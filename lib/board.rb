@@ -37,7 +37,6 @@ class Board
       board_row += " \n"
       board += board_row
     end
-    puts board
     return board
   end
 
