@@ -6,5 +6,10 @@ class Turn
     @computer_board = computer_board
   end
 
- 
+  def display
+    "==========COMPUTER BOARD==========\n" +
+    @computer_board.render +
+    "\n===========PLAYER BOARD===========\n" +
+    @player_board.render(true)
+  end
 end
